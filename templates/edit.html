@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Free Task Manager 2023</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/edit.css') }}"
+        />
+    </head>
+    <body>
+        <h1>Task Details</h1>
+        {% if useruuidCookie == useruuid %}
+        <form
+            action="{{ url_for('edit', taskuuid=taskuuid) }}"
+            ,
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <div>
+                <h2>Title:</h2>
+                <input name="title" value="{{ taskdetails[1] }}" />
+            </div>
+            <div>
+                <h2>Due Date:</h2>
+                <input name="duedate" value="{{ taskdetails[3] }}" />
+            </div>
+            {% if noImage %} There is no image for this task. {% else %}
+            <div>
+                <img src="/static/images/{{ taskdetails[4] }}" />
+            </div>
+            {% endif %}
+            <div>
+                <h2>Edit Image:</h2>
+                <input name="file" type="file" />
+            </div>
+            <button type="submit">Update</button>
+        </form>
+        <form action="/tasks/{{ useruuidCookie }}">
+            <button type="submit">Cancel</button>
+        </form>
+        {% else %}
+        <h1>You do not have access to this task</h1>
+        {% endif %}
+    </body>
+</html>

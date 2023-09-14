@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Free Task Manager 2023</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/login.css') }}"
+        />
+    </head>
+    <body>
+        <h1>Admin Login</h1>
+        <form method="post">
+            <input name="username" placeholder="Username" />
+            <input name="password" type="password" placeholder="Password" />
+            <div class="ErrorBox">
+                Invalid Username or Password, please try again.
+            </div>
+            <button type="submit" formaction="/admin">Login</button>
+        </form>
+    </body>
+</html>

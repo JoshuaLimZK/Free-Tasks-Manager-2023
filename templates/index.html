@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Free Task Manager 2023</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/index.css') }}"
+        />
+    </head>
+    <body>
+        <h1>Free Task Manager 2023</h1>
+        <form method="get">
+            <button type="submit" formaction="/signup">Signup</button>
+            <button type="submit" formaction="/login">Login</button>
+            <button type="submit" formaction="/admin">Admin</button>
+        </form>
+    </body>
+</html>

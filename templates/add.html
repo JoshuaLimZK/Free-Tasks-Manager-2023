@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Free Task Manager 2023</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/add.css') }}"
+        />
+    </head>
+    <body>
+        <h1>Add Task</h1>
+        <form
+            action="{{ url_for('add', useruuid=useruuid) }}"
+            ,
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <div>
+                <h2>Title:</h2>
+                <input name="title" placeholder="Untitled" />
+            </div>
+            <div>
+                <h2>Due Date:</h2>
+                <input name="duedate" placeholder="No Due Date" />
+            </div>
+            <div>
+                <h2>Image Upload:</h2>
+                <input name="file" type="file" />
+            </div>
+
+            <button type="submit">Add</button>
+        </form>
+        <form action="/tasks/{{ useruuid }}">
+            <button type="submit">Go Back</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Tasks</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/tasks.css') }}"
+        />
+    </head>
+    <body>
+        <h1>{{ username }}'s Tasks</h1>
+        <table>
+            <th class="done-col"></th>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th />
+            <th />
+            {% for i in range(tasktitles|length) %}
+            <tr>
+                <form
+                    action="{{ url_for('check', useruuid=useruuid, taskuuid=taskuuids[i][0]) }}"
+                >
+                    <td class="done-col">
+                        <input type="checkbox" {% if taskcompleteds[i] == 1 %}
+                        checked {% endif %} onclick="this.form.submit()"/>
+                    </td>
+                </form>
+                <td><p><span {% if taskcompleteds[i] == 1 %} style="text-decoration:line-through" {% endif %}>{{ tasktitles[i] }}</span></p></td>
+                <td><p><span {% if taskcompleteds[i] == 1 %} style="text-decoration:line-through" {% endif %}>{{ taskduedates[i] }}</span></p></td>
+                <td class="button-col">
+                    <form>
+                        <button
+                            type="submit"
+                            formaction="{{ url_for('edit', taskuuid=taskuuids[i][0]) }}"
+                            class="icon-button"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-edit"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5.5"/><path d="M4 13.5V6a2 2 0 0 1 2-2h2"/></svg>
+                        </button>
+                    </form>
+                </td>
+                <td class="button-col">
+                    <form>
+                        <button
+                            type="submit"
+                            formaction="{{ url_for('delete', useruuid=useruuid, taskuuid=taskuuids[i][0]) }}"
+                            class="icon-button"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <form>
+            <button type="submit" formaction="{{ url_for('add', useruuid=useruuid) }}" class="other-button">
+                Add Task
+            </button>
+        </form>
+        <form>
+            <button type="submit" formaction="/logout" class="other-button">Logout</button>
+        </form>
+    </body>
+</html>
