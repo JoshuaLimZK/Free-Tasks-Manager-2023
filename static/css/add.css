@@ -56,3 +56,8 @@ form {
     gap: 1rem;
     width: 100%;
 }
+
+th {
+    display: flex;
+    justify-content: start;
+}

@@ -26,7 +26,7 @@ def tasks(useruuid):
     try:
         username = cursor.execute('SELECT username FROM Usernames WHERE useruuid=?', (useruuid,)).fetchone()[0]
     except TypeError:
-        return redirect('/login')
+        return redirect('/')
     taskuuids = cursor.execute('SELECT taskuuid FROM Tasks WHERE useruuid=?', (useruuid,)).fetchall()
     taskdetails = []
     for i in taskuuids:
@@ -250,7 +250,22 @@ def adminpanel():
         usernamedata = sqlite3.connect('data.db').cursor().execute('SELECT * FROM Usernames').fetchall()
         usernames = [i[1] for i in usernamedata]
         useruuids = [i[0] for i in usernamedata]
-        return render_template('adminpanel.html', usernames=usernames, useruuids=useruuids)
+        passwords = []
+        for i in useruuids:
+            passwords.append(sqlite3.connect('data.db').cursor().execute('SELECT password FROM Passwords WHERE useruuid=?', (i,)).fetchone()[0])
+        return render_template('adminpanel.html', usernames=usernames, useruuids=useruuids, passwords=passwords)
+    if request.method == "POST":
+        username = request.form.get('username')
+        password = request.form.get('password')
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+        useruuid = cursor.execute('SELECT useruuid FROM Usernames WHERE username=?', (username,)).fetchone()[0]
+        cursor.execute('UPDATE Passwords SET password=? WHERE useruuid=?', (password, useruuid))
+        cursor.execute('UPDATE Usernames SET username=? WHERE useruuid=?', (username, useruuid))
+        connection.commit()
+        cursor.close()
+        connection.close()
+        return redirect('/admin/panel')
     
 @app.route("/deleteuser/<useruuid>", methods=['GET'])
 def deleteuser(useruuid):
