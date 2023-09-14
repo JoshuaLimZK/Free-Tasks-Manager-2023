@@ -6,7 +6,7 @@
 
 ## [Landing Page](http://tasks.joshualimzk.com:5000/)
 
-The user is first send to the landing page at the index page of the website if they are not logged in.
+The user is first sent to the landing page at the index page of the website if they are not logged in.
 
 If they are logged in, the user is redirected to the tasks page.
 
