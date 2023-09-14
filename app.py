@@ -257,9 +257,9 @@ def adminpanel():
     if request.method == "POST":
         username = request.form.get('username')
         password = request.form.get('password')
+        useruuid = request.args.get('useruuid')
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
-        useruuid = cursor.execute('SELECT useruuid FROM Usernames WHERE username=?', (username,)).fetchone()[0]
         cursor.execute('UPDATE Passwords SET password=? WHERE useruuid=?', (password, useruuid))
         cursor.execute('UPDATE Usernames SET username=? WHERE useruuid=?', (username, useruuid))
         connection.commit()
@@ -281,4 +281,4 @@ def deleteuser(useruuid):
 
 if __name__ == '__main__':
         
-    app.run(debug=True, port=6969)
+    app.run(debug=True, port=5000, host="0.0.0.0")
