@@ -62,6 +62,8 @@ def edit(taskuuid):
         cursor.execute('UPDATE Taskdetails SET title=?, duedate=? WHERE taskuuid=?', (newtitle, newduedate, taskuuid))
         if file.filename != '':
             filename = secure_filename(file.filename)
+            fileExtension = filename.split('.')[-1]
+            filename = taskuuid + '.' + fileExtension
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             cursor.execute('UPDATE Taskdetails SET imagetype=? WHERE taskuuid=?', (filename, taskuuid))
         connection.commit()
@@ -114,6 +116,8 @@ def add(useruuid):
             duedate = 'No Due Date'
         if file.filename != '':
             filename = secure_filename(file.filename)
+            fileExtension = filename.split('.')[-1]
+            filename = newuuid + '.' + fileExtension
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             cursor.execute('INSERT INTO Taskdetails VALUES (?, ?, ?, ?, ?)', (newuuid, title, 0, duedate, filename))
         else:
