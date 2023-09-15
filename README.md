@@ -4,6 +4,18 @@
 
 # Documentation
 
+## DEPENDENCIES
+
+### Flask
+``` 
+$ pip install flask
+```
+
+### Werkzeug
+```
+$ pip install werkzeug
+```
+
 ## EXAMPLE LOGINS
 - **Username**: john **Password**: 12345
 - **Username**: Bob **Password**: 54321
